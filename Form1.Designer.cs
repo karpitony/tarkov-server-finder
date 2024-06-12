@@ -37,8 +37,11 @@
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.AutoSize = true;
             this.button1.Font = new System.Drawing.Font("굴림", 20F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(161, 32);
+            this.button1.Location = new System.Drawing.Point(159, 28);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(161, 51);
             this.button1.TabIndex = 0;
@@ -50,17 +53,18 @@
             // 
             this.labelCountryName.AutoSize = true;
             this.labelCountryName.Font = new System.Drawing.Font("굴림", 16F);
-            this.labelCountryName.Location = new System.Drawing.Point(176, 150);
+            this.labelCountryName.Location = new System.Drawing.Point(178, 144);
             this.labelCountryName.Name = "labelCountryName";
             this.labelCountryName.Size = new System.Drawing.Size(114, 22);
             this.labelCountryName.TabIndex = 1;
             this.labelCountryName.Text = "국가: None";
+            this.labelCountryName.Click += new System.EventHandler(this.labelCountryName_Click);
             // 
             // labelCityName
             // 
             this.labelCityName.AutoSize = true;
             this.labelCityName.Font = new System.Drawing.Font("굴림", 16F);
-            this.labelCityName.Location = new System.Drawing.Point(176, 254);
+            this.labelCityName.Location = new System.Drawing.Point(180, 227);
             this.labelCityName.Name = "labelCityName";
             this.labelCityName.Size = new System.Drawing.Size(114, 22);
             this.labelCityName.TabIndex = 2;
@@ -68,9 +72,10 @@
             // 
             // labelRegionName
             // 
+            this.labelRegionName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.labelRegionName.AutoSize = true;
             this.labelRegionName.Font = new System.Drawing.Font("굴림", 16F);
-            this.labelRegionName.Location = new System.Drawing.Point(176, 200);
+            this.labelRegionName.Location = new System.Drawing.Point(180, 184);
             this.labelRegionName.Name = "labelRegionName";
             this.labelRegionName.Size = new System.Drawing.Size(114, 22);
             this.labelRegionName.TabIndex = 3;
@@ -80,7 +85,7 @@
             // 
             this.labelIpAddress.AutoSize = true;
             this.labelIpAddress.Font = new System.Drawing.Font("굴림", 12F);
-            this.labelIpAddress.Location = new System.Drawing.Point(177, 110);
+            this.labelIpAddress.Location = new System.Drawing.Point(181, 110);
             this.labelIpAddress.Name = "labelIpAddress";
             this.labelIpAddress.Size = new System.Drawing.Size(111, 16);
             this.labelIpAddress.TabIndex = 4;
@@ -91,14 +96,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(484, 361);
+            this.Controls.Add(this.labelCityName);
             this.Controls.Add(this.labelIpAddress);
             this.Controls.Add(this.labelRegionName);
-            this.Controls.Add(this.labelCityName);
             this.Controls.Add(this.labelCountryName);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Tarkov Server Finder (v1.0)";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
