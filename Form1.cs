@@ -158,14 +158,11 @@ namespace tarkov_server_finder
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        if (line.Contains("address:"))
+                        // 'address: ' 뒤에 오는 IP 주소와 포트를 찾는 정규 표현식
+                        Match match = Regex.Match(line, @"(?<=address: )(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})");
+                        if (match.Success)
                         {
-                            Match match = Regex.Match(line, @"address: (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})");
-                            if (match.Success)
-                            {
-                                // 첫 번째 그룹을 가져와서 IP 주소만을 추출합니다.
-                                lastIpAddress = match.Groups[1].Value;
-                            }
+                            lastIpAddress = match.Groups[1].Value;
                         }
                     }
                 }
@@ -177,6 +174,7 @@ namespace tarkov_server_finder
                 return null;
             }
         }
+
 
         // IP 주소를 받아서 지리적 위치 정보를 가져와 라벨에 표시하는 메서드
         private void SetGeoLocationLabels(string ipAddress)
