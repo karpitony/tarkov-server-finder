@@ -35,6 +35,8 @@
             this.labelIpAddress = new System.Windows.Forms.Label();
             this.textBoxFolderPath = new System.Windows.Forms.TextBox();
             this.buttonApply = new System.Windows.Forms.Button();
+            this.linkLabelHowToUse = new System.Windows.Forms.LinkLabel();
+            this.linkLabelBugReport = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // button1
@@ -120,12 +122,40 @@
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
+            // linkLabelHowToUse
+            // 
+            this.linkLabelHowToUse.AutoSize = true;
+            this.linkLabelHowToUse.Font = new System.Drawing.Font("굴림", 12F);
+            this.linkLabelHowToUse.Location = new System.Drawing.Point(12, 336);
+            this.linkLabelHowToUse.Name = "linkLabelHowToUse";
+            this.linkLabelHowToUse.Size = new System.Drawing.Size(76, 16);
+            this.linkLabelHowToUse.TabIndex = 7;
+            this.linkLabelHowToUse.TabStop = true;
+            this.linkLabelHowToUse.Text = "사용 방법";
+            this.linkLabelHowToUse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.linkLabelHowToUse.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // linkLabelBugReport
+            // 
+            this.linkLabelBugReport.AutoSize = true;
+            this.linkLabelBugReport.Font = new System.Drawing.Font("굴림", 12F);
+            this.linkLabelBugReport.Location = new System.Drawing.Point(358, 336);
+            this.linkLabelBugReport.Name = "linkLabelBugReport";
+            this.linkLabelBugReport.Size = new System.Drawing.Size(114, 16);
+            this.linkLabelBugReport.TabIndex = 8;
+            this.linkLabelBugReport.TabStop = true;
+            this.linkLabelBugReport.Text = "버그/오류 제보";
+            this.linkLabelBugReport.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.linkLabelBugReport.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelBugReport_LinkClicked);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(484, 361);
+            this.Controls.Add(this.linkLabelBugReport);
+            this.Controls.Add(this.linkLabelHowToUse);
             this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.textBoxFolderPath);
             this.Controls.Add(this.labelCityName);
@@ -150,6 +180,8 @@
         private System.Windows.Forms.Label labelIpAddress;
         private System.Windows.Forms.TextBox textBoxFolderPath;
         private System.Windows.Forms.Button buttonApply;
+        private System.Windows.Forms.LinkLabel linkLabelHowToUse;
+        private System.Windows.Forms.LinkLabel linkLabelBugReport;
     }
 }
 

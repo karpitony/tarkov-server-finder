@@ -235,6 +235,16 @@ namespace tarkov_server_finder
         {
 
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/karpitony/tarkov-server-finder/blob/main/README.md");
+        }
+
+        private void linkLabelBugReport_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/karpitony/tarkov-server-finder/issues");
+        }
     }
 
     public class Settings
