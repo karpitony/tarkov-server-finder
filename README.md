@@ -1,2 +1,2 @@
-# tarkov-server-finder
+# Tarkov Server Finder
  

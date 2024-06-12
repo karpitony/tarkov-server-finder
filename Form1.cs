@@ -5,26 +5,102 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace tarkov_server_finder
 {
     public partial class Form1 : Form
     {
+        private string baseFolderPath;
+        private const string settingsFilePath = "settings.json";
+
         public Form1()
         {
             InitializeComponent();
+            LoadSettings();
+        }
+
+        private void LoadSettings()
+        {
+            if (File.Exists(settingsFilePath))
+            {
+                try
+                {
+                    var settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(settingsFilePath));
+                    baseFolderPath = settings.BaseFolderPath;
+                    textBoxFolderPath.Text = baseFolderPath;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"설정 파일을 불러오는 중 오류 발생: {ex.Message}", "오류");
+                }
+            }
+            else
+            {
+                // 기본 경로 설정
+                baseFolderPath = @"C:\Battlestate Games";
+                textBoxFolderPath.Text = baseFolderPath;
+            }
+        }
+
+        private void SaveSettings()
+        {
+            try
+            {
+                var settings = new Settings
+                {
+                    BaseFolderPath = baseFolderPath
+                };
+                File.WriteAllText(settingsFilePath, JsonConvert.SerializeObject(settings));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"설정 파일을 저장하는 중 오류 발생: {ex.Message}", "오류");
+            }
+        }
+
+        private void buttonApply_Click(object sender, EventArgs e)
+        {
+            CommonOpenFileDialog dlg = new CommonOpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+                IsFolderPicker = true
+            };
+
+            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                string selectedPath = dlg.FileName;
+                string targetDirectory = Path.Combine(selectedPath, @"Escape from Tarkov\Logs");
+
+                if (Directory.Exists(targetDirectory))
+                {
+                    textBoxFolderPath.Text = selectedPath;
+                    baseFolderPath = selectedPath;
+                    SaveSettings();
+                }
+                else
+                {
+                    MessageBox.Show($"선택한 폴더에 'Escape from Tarkov\\Logs' 디렉토리가 없습니다: {targetDirectory}", "오류");
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string targetDirectory = @"E:\Battlestate Games\Escape from Tarkov\Logs";
+            if (string.IsNullOrEmpty(baseFolderPath))
+            {
+                MessageBox.Show("먼저 폴더 경로를 설정하세요.", "경로 설정 필요");
+                return;
+            }
+
+            string searchDirectory = Path.Combine(baseFolderPath, @"Escape from Tarkov\Logs");
 
             try
             {
-                if (Directory.Exists(targetDirectory))
+                if (Directory.Exists(searchDirectory))
                 {
                     // 가장 최근 폴더 찾기
-                    var latestDirectory = new DirectoryInfo(targetDirectory)
+                    var latestDirectory = new DirectoryInfo(searchDirectory)
                         .GetDirectories()
                         .OrderByDescending(d => d.LastWriteTime)
                         .FirstOrDefault();
@@ -62,7 +138,7 @@ namespace tarkov_server_finder
                 }
                 else
                 {
-                    MessageBox.Show($"디렉토리가 존재하지 않습니다: {targetDirectory}", "오류");
+                    MessageBox.Show($"디렉토리가 존재하지 않습니다: {searchDirectory}", "오류");
                 }
             }
             catch (Exception ex)
@@ -70,7 +146,6 @@ namespace tarkov_server_finder
                 MessageBox.Show($"오류 발생: {ex.Message}", "오류");
             }
         }
-
 
         // log 파일에서 가장 최근 ip 주소 가져오기
         static string GetLastIpAddress(string logFilePath)
@@ -102,7 +177,6 @@ namespace tarkov_server_finder
                 return null;
             }
         }
-
 
         // IP 주소를 받아서 지리적 위치 정보를 가져와 라벨에 표시하는 메서드
         private void SetGeoLocationLabels(string ipAddress)
@@ -136,5 +210,45 @@ namespace tarkov_server_finder
         {
 
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelCountryName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelRegionName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelCityName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxFolderPath_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/karpitony/tarkov-server-finder/blob/main/README.md");
+        }
+
+        private void linkLabelBugReport_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/karpitony/tarkov-server-finder/issues");
+        }
+    }
+
+    public class Settings
+    {
+        public string BaseFolderPath { get; set; }
     }
 }
