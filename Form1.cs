@@ -147,25 +147,23 @@ namespace tarkov_server_finder
             }
         }
 
-        // log 파일에서 가장 최근 ip 주소 가져오기
         static string GetLastIpAddress(string logFilePath)
         {
             try
             {
                 string lastIpAddress = null;
-                using (StreamReader reader = new StreamReader(logFilePath))
+                string[] lines = File.ReadAllLines(logFilePath);
+
+                foreach (string line in lines)
                 {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
+                    Match match = Regex.Match(line, @"(?<=address: )(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})");
+
+                    if (match.Success)
                     {
-                        // 'address: ' 뒤에 오는 IP 주소와 포트를 찾는 정규 표현식
-                        Match match = Regex.Match(line, @"(?<=address: )(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})");
-                        if (match.Success)
-                        {
-                            lastIpAddress = match.Groups[1].Value;
-                        }
+                        lastIpAddress = match.Value;
                     }
                 }
+
                 return lastIpAddress;
             }
             catch (Exception ex)
@@ -174,6 +172,9 @@ namespace tarkov_server_finder
                 return null;
             }
         }
+
+
+
 
 
         // IP 주소를 받아서 지리적 위치 정보를 가져와 라벨에 표시하는 메서드
