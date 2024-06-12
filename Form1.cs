@@ -6,14 +6,12 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Reflection.Emit;
 
 namespace tarkov_server_finder
 {
     public partial class Form1 : Form
     {
-        private string baseFolderPath;
+        private string logsFolderPath;
         private const string settingsFilePath = "settings.json";
 
         public Form1()
@@ -28,9 +26,7 @@ namespace tarkov_server_finder
             {
                 try
                 {
-                    var settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(settingsFilePath));
-                    baseFolderPath = settings.BaseFolderPath;
-                    textBoxFolderPath.Text = baseFolderPath;
+                    logsFolderPath = JsonConvert.DeserializeObject<string>(File.ReadAllText(settingsFilePath));
                 }
                 catch (Exception ex)
                 {
@@ -39,21 +35,19 @@ namespace tarkov_server_finder
             }
             else
             {
-                // 기본 경로 설정
-                baseFolderPath = @"C:\Battlestate Games";
-                textBoxFolderPath.Text = baseFolderPath;
+                // 기본 Logs 경로 설정
+                logsFolderPath = @"C:\Battlestate Games\Escape from Tarkov\Logs";
             }
+
+            // 텍스트 상자에 기본 설정값 표시
+            textBoxFolderPath.Text = logsFolderPath;
         }
 
         private void SaveSettings()
         {
             try
             {
-                var settings = new Settings
-                {
-                    BaseFolderPath = baseFolderPath
-                };
-                File.WriteAllText(settingsFilePath, JsonConvert.SerializeObject(settings));
+                File.WriteAllText(settingsFilePath, JsonConvert.SerializeObject(logsFolderPath));
             }
             catch (Exception ex)
             {
@@ -65,82 +59,58 @@ namespace tarkov_server_finder
         {
             CommonOpenFileDialog dlg = new CommonOpenFileDialog
             {
-                InitialDirectory = @"C:\",
+                InitialDirectory = logsFolderPath,
                 IsFolderPicker = true
             };
 
             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                string selectedPath = dlg.FileName;
-                string targetDirectory = Path.Combine(selectedPath, @"Escape from Tarkov\Logs");
-
-                if (Directory.Exists(targetDirectory))
-                {
-                    textBoxFolderPath.Text = selectedPath;
-                    baseFolderPath = selectedPath;
-                    SaveSettings();
-                }
-                else
-                {
-                    MessageBox.Show($"선택한 폴더에 'Escape from Tarkov\\Logs' 디렉토리가 없습니다: {targetDirectory}", "오류");
-                }
+                logsFolderPath = dlg.FileName;
+                textBoxFolderPath.Text = logsFolderPath; // 텍스트 상자 업데이트
+                SaveSettings();
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(baseFolderPath))
+            if (string.IsNullOrEmpty(logsFolderPath))
             {
                 MessageBox.Show("먼저 폴더 경로를 설정하세요.", "경로 설정 필요");
                 return;
             }
 
-            string searchDirectory = Path.Combine(baseFolderPath, @"Escape from Tarkov\Logs");
-
             try
             {
-                if (Directory.Exists(searchDirectory))
+                if (Directory.Exists(logsFolderPath))
                 {
-                    // 가장 최근 폴더 찾기
-                    var latestDirectory = new DirectoryInfo(searchDirectory)
-                        .GetDirectories()
-                        .OrderByDescending(d => d.LastWriteTime)
+                    // 가장 최근 파일 찾기
+                    var latestFile = new DirectoryInfo(logsFolderPath)
+                        .GetFiles("*-network-connection.log", SearchOption.AllDirectories)
+                        .OrderByDescending(f => f.LastWriteTime)
                         .FirstOrDefault();
 
-                    if (latestDirectory != null)
+                    if (latestFile != null)
                     {
-                        // 가장 최근 파일 찾기
-                        var latestFile = latestDirectory.GetFiles("*-network-connection.log")
-                            .OrderByDescending(f => f.LastWriteTime)
-                            .FirstOrDefault();
-
-                        if (latestFile != null)
+                        // 파일에서 가장 최근 IP 주소 추출
+                        string lastIpAddress = GetFirstIpAddress(latestFile.FullName);
+                        if (!string.IsNullOrEmpty(lastIpAddress))
                         {
-                            // 파일에서 가장 최근 IP 주소 추출
-                            string lastIpAddress = GetFirstIpAddress(latestFile.FullName);
-                            if (!string.IsNullOrEmpty(lastIpAddress))
-                            {
-                                labelIpAddress.Text = $"IP 주소 : {lastIpAddress}";
-                                SetGeoLocationLabels(lastIpAddress);
-                            }
-                            else
-                            {
-                                MessageBox.Show("로그 파일에서 IP 주소를 찾을 수 없습니다.", "IP 주소 없음");
-                            }
+                            labelIpAddress.Text = $"IP 주소 : {lastIpAddress}";
+                            SetGeoLocationLabels(lastIpAddress);
                         }
                         else
                         {
-                            MessageBox.Show("해당 폴더에 '-network-connection.log'로 끝나는 파일이 없습니다.", "파일 없음");
+                            MessageBox.Show("로그 파일에서 IP 주소를 찾을 수 없습니다.", "IP 주소 없음");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Logs 디렉토리에 폴더가 없습니다.", "폴더 없음");
+                        MessageBox.Show("해당 폴더에 '-network-connection.log'로 끝나는 파일이 없습니다.", "파일 없음");
                     }
                 }
                 else
                 {
-                    MessageBox.Show($"디렉토리가 존재하지 않습니다: {searchDirectory}", "오류");
+                    MessageBox.Show($"디렉토리가 존재하지 않습니다: {logsFolderPath}", "오류");
                 }
             }
             catch (Exception ex)
@@ -148,6 +118,7 @@ namespace tarkov_server_finder
                 MessageBox.Show($"오류 발생: {ex.Message}", "오류");
             }
         }
+
         static string GetFirstIpAddress(string logFilePath)
         {
             try
@@ -181,11 +152,6 @@ namespace tarkov_server_finder
                 return null;
             }
         }
-
-
-
-
-
 
         // IP 주소를 받아서 지리적 위치 정보를 가져와 라벨에 표시하는 메서드
         private void SetGeoLocationLabels(string ipAddress)
@@ -225,10 +191,5 @@ namespace tarkov_server_finder
         {
             System.Diagnostics.Process.Start("https://github.com/karpitony/tarkov-server-finder/issues");
         }
-    }
-
-    public class Settings
-    {
-        public string BaseFolderPath { get; set; }
     }
 }
