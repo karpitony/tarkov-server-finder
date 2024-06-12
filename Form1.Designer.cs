@@ -33,6 +33,8 @@
             this.labelCityName = new System.Windows.Forms.Label();
             this.labelRegionName = new System.Windows.Forms.Label();
             this.labelIpAddress = new System.Windows.Forms.Label();
+            this.textBoxFolderPath = new System.Windows.Forms.TextBox();
+            this.buttonApply = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -41,7 +43,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.AutoSize = true;
             this.button1.Font = new System.Drawing.Font("굴림", 20F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(159, 28);
+            this.button1.Location = new System.Drawing.Point(154, 77);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(161, 51);
             this.button1.TabIndex = 0;
@@ -53,44 +55,70 @@
             // 
             this.labelCountryName.AutoSize = true;
             this.labelCountryName.Font = new System.Drawing.Font("굴림", 16F);
-            this.labelCountryName.Location = new System.Drawing.Point(178, 144);
+            this.labelCountryName.Location = new System.Drawing.Point(177, 196);
             this.labelCountryName.Name = "labelCountryName";
             this.labelCountryName.Size = new System.Drawing.Size(114, 22);
             this.labelCountryName.TabIndex = 1;
             this.labelCountryName.Text = "국가: None";
+            this.labelCountryName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelCountryName.Click += new System.EventHandler(this.labelCountryName_Click);
             // 
             // labelCityName
             // 
             this.labelCityName.AutoSize = true;
             this.labelCityName.Font = new System.Drawing.Font("굴림", 16F);
-            this.labelCityName.Location = new System.Drawing.Point(180, 227);
+            this.labelCityName.Location = new System.Drawing.Point(177, 285);
             this.labelCityName.Name = "labelCityName";
             this.labelCityName.Size = new System.Drawing.Size(114, 22);
             this.labelCityName.TabIndex = 2;
             this.labelCityName.Text = "도시: None";
+            this.labelCityName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelCityName.Click += new System.EventHandler(this.labelCityName_Click);
             // 
             // labelRegionName
             // 
             this.labelRegionName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.labelRegionName.AutoSize = true;
             this.labelRegionName.Font = new System.Drawing.Font("굴림", 16F);
-            this.labelRegionName.Location = new System.Drawing.Point(180, 184);
+            this.labelRegionName.Location = new System.Drawing.Point(177, 244);
             this.labelRegionName.Name = "labelRegionName";
             this.labelRegionName.Size = new System.Drawing.Size(114, 22);
             this.labelRegionName.TabIndex = 3;
             this.labelRegionName.Text = "지역: None";
+            this.labelRegionName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelRegionName.Click += new System.EventHandler(this.labelRegionName_Click);
             // 
             // labelIpAddress
             // 
             this.labelIpAddress.AutoSize = true;
             this.labelIpAddress.Font = new System.Drawing.Font("굴림", 12F);
-            this.labelIpAddress.Location = new System.Drawing.Point(181, 110);
+            this.labelIpAddress.Location = new System.Drawing.Point(179, 151);
             this.labelIpAddress.Name = "labelIpAddress";
             this.labelIpAddress.Size = new System.Drawing.Size(111, 16);
             this.labelIpAddress.TabIndex = 4;
             this.labelIpAddress.Text = "IP 주소 : None";
+            this.labelIpAddress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelIpAddress.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // textBoxFolderPath
+            // 
+            this.textBoxFolderPath.Font = new System.Drawing.Font("굴림", 12F);
+            this.textBoxFolderPath.Location = new System.Drawing.Point(100, 28);
+            this.textBoxFolderPath.Name = "textBoxFolderPath";
+            this.textBoxFolderPath.Size = new System.Drawing.Size(175, 26);
+            this.textBoxFolderPath.TabIndex = 5;
+            this.textBoxFolderPath.TextChanged += new System.EventHandler(this.textBoxFolderPath_TextChanged);
+            // 
+            // buttonApply
+            // 
+            this.buttonApply.Font = new System.Drawing.Font("굴림", 14F);
+            this.buttonApply.Location = new System.Drawing.Point(291, 28);
+            this.buttonApply.Name = "buttonApply";
+            this.buttonApply.Size = new System.Drawing.Size(75, 26);
+            this.buttonApply.TabIndex = 6;
+            this.buttonApply.Text = "선택";
+            this.buttonApply.UseVisualStyleBackColor = true;
+            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
             // Form1
             // 
@@ -98,6 +126,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(484, 361);
+            this.Controls.Add(this.buttonApply);
+            this.Controls.Add(this.textBoxFolderPath);
             this.Controls.Add(this.labelCityName);
             this.Controls.Add(this.labelIpAddress);
             this.Controls.Add(this.labelRegionName);
@@ -118,6 +148,8 @@
         private System.Windows.Forms.Label labelCityName;
         private System.Windows.Forms.Label labelRegionName;
         private System.Windows.Forms.Label labelIpAddress;
+        private System.Windows.Forms.TextBox textBoxFolderPath;
+        private System.Windows.Forms.Button buttonApply;
     }
 }
 
