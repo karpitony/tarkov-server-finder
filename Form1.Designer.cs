@@ -34,7 +34,7 @@
             this.labelRegionName = new System.Windows.Forms.Label();
             this.labelIpAddress = new System.Windows.Forms.Label();
             this.textBoxFolderPath = new System.Windows.Forms.TextBox();
-            this.buttonApply = new System.Windows.Forms.Button();
+            this.buttonChangePath = new System.Windows.Forms.Button();
             this.linkLabelHowToUse = new System.Windows.Forms.LinkLabel();
             this.linkLabelBugReport = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
@@ -44,7 +44,7 @@
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button1.AutoSize = true;
             this.button1.Font = new System.Drawing.Font("굴림", 20F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(105, 74);
+            this.button1.Location = new System.Drawing.Point(105, 86);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(266, 51);
             this.button1.TabIndex = 0;
@@ -56,7 +56,7 @@
             // 
             this.labelCountryName.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelCountryName.Font = new System.Drawing.Font("굴림", 16F);
-            this.labelCountryName.Location = new System.Drawing.Point(105, 191);
+            this.labelCountryName.Location = new System.Drawing.Point(105, 197);
             this.labelCountryName.Name = "labelCountryName";
             this.labelCountryName.Size = new System.Drawing.Size(266, 22);
             this.labelCountryName.TabIndex = 1;
@@ -78,7 +78,7 @@
             // 
             this.labelRegionName.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelRegionName.Font = new System.Drawing.Font("굴림", 16F);
-            this.labelRegionName.Location = new System.Drawing.Point(105, 235);
+            this.labelRegionName.Location = new System.Drawing.Point(105, 238);
             this.labelRegionName.Name = "labelRegionName";
             this.labelRegionName.Size = new System.Drawing.Size(266, 22);
             this.labelRegionName.TabIndex = 3;
@@ -89,7 +89,7 @@
             // 
             this.labelIpAddress.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelIpAddress.Font = new System.Drawing.Font("굴림", 16F);
-            this.labelIpAddress.Location = new System.Drawing.Point(105, 147);
+            this.labelIpAddress.Location = new System.Drawing.Point(105, 156);
             this.labelIpAddress.Name = "labelIpAddress";
             this.labelIpAddress.Size = new System.Drawing.Size(266, 22);
             this.labelIpAddress.TabIndex = 4;
@@ -100,22 +100,23 @@
             // 
             this.textBoxFolderPath.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.textBoxFolderPath.Font = new System.Drawing.Font("굴림", 12F);
-            this.textBoxFolderPath.Location = new System.Drawing.Point(105, 28);
+            this.textBoxFolderPath.Location = new System.Drawing.Point(15, 41);
             this.textBoxFolderPath.Name = "textBoxFolderPath";
-            this.textBoxFolderPath.Size = new System.Drawing.Size(175, 26);
+            this.textBoxFolderPath.ReadOnly = true;
+            this.textBoxFolderPath.Size = new System.Drawing.Size(376, 26);
             this.textBoxFolderPath.TabIndex = 5;
             // 
-            // buttonApply
+            // buttonChangePath
             // 
-            this.buttonApply.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonApply.Font = new System.Drawing.Font("굴림", 14F);
-            this.buttonApply.Location = new System.Drawing.Point(296, 28);
-            this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(75, 26);
-            this.buttonApply.TabIndex = 6;
-            this.buttonApply.Text = "선택";
-            this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            this.buttonChangePath.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonChangePath.Font = new System.Drawing.Font("굴림", 14F);
+            this.buttonChangePath.Location = new System.Drawing.Point(397, 41);
+            this.buttonChangePath.Name = "buttonChangePath";
+            this.buttonChangePath.Size = new System.Drawing.Size(75, 26);
+            this.buttonChangePath.TabIndex = 6;
+            this.buttonChangePath.Text = "변경";
+            this.buttonChangePath.UseVisualStyleBackColor = true;
+            this.buttonChangePath.Click += new System.EventHandler(this.buttonApply_Click);
             // 
             // linkLabelHowToUse
             // 
@@ -153,7 +154,7 @@
             this.ClientSize = new System.Drawing.Size(484, 361);
             this.Controls.Add(this.linkLabelBugReport);
             this.Controls.Add(this.linkLabelHowToUse);
-            this.Controls.Add(this.buttonApply);
+            this.Controls.Add(this.buttonChangePath);
             this.Controls.Add(this.textBoxFolderPath);
             this.Controls.Add(this.labelCityName);
             this.Controls.Add(this.labelIpAddress);
@@ -161,7 +162,7 @@
             this.Controls.Add(this.labelCountryName);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "Tarkov Server Finder (v1.0)";
+            this.Text = "Tarkov Server Finder (v1.1)";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,7 +176,7 @@
         private System.Windows.Forms.Label labelRegionName;
         private System.Windows.Forms.Label labelIpAddress;
         private System.Windows.Forms.TextBox textBoxFolderPath;
-        private System.Windows.Forms.Button buttonApply;
+        private System.Windows.Forms.Button buttonChangePath;
         private System.Windows.Forms.LinkLabel linkLabelHowToUse;
         private System.Windows.Forms.LinkLabel linkLabelBugReport;
     }
