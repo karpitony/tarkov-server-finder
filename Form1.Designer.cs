@@ -63,7 +63,6 @@
             this.labelCountryName.TabIndex = 1;
             this.labelCountryName.Text = "국가: None";
             this.labelCountryName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelCountryName.Click += new System.EventHandler(this.labelCountryName_Click);
             // 
             // labelCityName
             // 
@@ -75,7 +74,6 @@
             this.labelCityName.TabIndex = 2;
             this.labelCityName.Text = "도시: None";
             this.labelCityName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelCityName.Click += new System.EventHandler(this.labelCityName_Click);
             // 
             // labelRegionName
             // 
@@ -88,7 +86,6 @@
             this.labelRegionName.TabIndex = 3;
             this.labelRegionName.Text = "지역: None";
             this.labelRegionName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelRegionName.Click += new System.EventHandler(this.labelRegionName_Click);
             // 
             // labelIpAddress
             // 
@@ -100,7 +97,6 @@
             this.labelIpAddress.TabIndex = 4;
             this.labelIpAddress.Text = "IP 주소 : None";
             this.labelIpAddress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelIpAddress.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBoxFolderPath
             // 
@@ -109,7 +105,6 @@
             this.textBoxFolderPath.Name = "textBoxFolderPath";
             this.textBoxFolderPath.Size = new System.Drawing.Size(175, 26);
             this.textBoxFolderPath.TabIndex = 5;
-            this.textBoxFolderPath.TextChanged += new System.EventHandler(this.textBoxFolderPath_TextChanged);
             // 
             // buttonApply
             // 
@@ -165,7 +160,6 @@
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Tarkov Server Finder (v1.0)";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
