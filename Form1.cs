@@ -6,6 +6,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Reflection.Emit;
 
 namespace tarkov_server_finder
 {
@@ -115,7 +117,7 @@ namespace tarkov_server_finder
                         if (latestFile != null)
                         {
                             // 파일에서 가장 최근 IP 주소 추출
-                            string lastIpAddress = GetLastIpAddress(latestFile.FullName);
+                            string lastIpAddress = GetFirstIpAddress(latestFile.FullName);
                             if (!string.IsNullOrEmpty(lastIpAddress))
                             {
                                 labelIpAddress.Text = $"IP 주소 : {lastIpAddress}";
@@ -146,25 +148,32 @@ namespace tarkov_server_finder
                 MessageBox.Show($"오류 발생: {ex.Message}", "오류");
             }
         }
-
-        static string GetLastIpAddress(string logFilePath)
+        static string GetFirstIpAddress(string logFilePath)
         {
             try
             {
-                string lastIpAddress = null;
-                string[] lines = File.ReadAllLines(logFilePath);
+                string firstIpAddress = null;
 
-                foreach (string line in lines)
+                // FileStream을 사용하여 파일을 읽기 전용으로 엽니다.
+                using (FileStream fileStream = new FileStream(logFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    Match match = Regex.Match(line, @"(?<=address: )(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})");
-
-                    if (match.Success)
+                    using (StreamReader reader = new StreamReader(fileStream))
                     {
-                        lastIpAddress = match.Value;
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            Match match = Regex.Match(line, @"(?<=Try add connection )(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})");
+
+                            if (match.Success)
+                            {
+                                firstIpAddress = match.Value;
+                                break; // 첫 번째 IP 주소를 찾았으므로 루프를 종료합니다.
+                            }
+                        }
                     }
                 }
 
-                return lastIpAddress;
+                return firstIpAddress;
             }
             catch (Exception ex)
             {
@@ -172,6 +181,7 @@ namespace tarkov_server_finder
                 return null;
             }
         }
+
 
 
 
@@ -189,9 +199,9 @@ namespace tarkov_server_finder
                     dynamic geoInfo = JsonConvert.DeserializeObject(response);
 
                     // 국가, 도시 정보를 라벨에 표시
-                    labelCountryName.Text = $"국가: {geoInfo["country"]}";
-                    labelRegionName.Text = $"지역: {geoInfo["regionName"]}";
-                    labelCityName.Text = $"도시: {geoInfo["city"]}";
+                    labelCountryName.Text = $"국가 : {geoInfo["country"]}";
+                    labelRegionName.Text = $"지역 : {geoInfo["regionName"]}";
+                    labelCityName.Text = $"도시 : {geoInfo["city"]}";
                 }
             }
             catch (Exception ex)
@@ -199,39 +209,10 @@ namespace tarkov_server_finder
                 Console.WriteLine($"오류 발생: {ex.Message}");
 
                 // 오류 발생 시 라벨에 오류 메시지 표시
-                labelCountryName.Text = "국가: 오류";
-                labelRegionName.Text = "지역: 오류";
-                labelCityName.Text = "도시: 오류";
+                labelCountryName.Text = "국가 : 오류";
+                labelRegionName.Text = "지역 : 오류";
+                labelCityName.Text = "도시 : 오류";
             }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelCountryName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelRegionName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelCityName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxFolderPath_TextChanged(object sender, EventArgs e)
-        {
 
         }
 
