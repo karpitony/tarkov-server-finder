@@ -4,7 +4,9 @@
 [![GitHub License](https://img.shields.io/github/license/karpitony/tarkov-server-finder)](./LICENSE)
 
 # Tarkov Server Finder
- 
+> 타르코프의 매치로그는 파티장일 때에만 만들어집니다. <br>
+> 이 프로그램은 타르코프가 제공하는 로그를 읽기 때문에 사용자가 파티장일 경우에만 작동합니다.
+
 ## 사용 방법
 
 **1. 프로그램 실행**
@@ -24,6 +26,7 @@
 <br /><br />
 
 **3. 프로그램 상단의 파일 경로를 바꾸기**
+
 대부분이 C 드라이브라 기본 설정은 C드라이브이므로 다른 곳에 설치했다면 바꿔주기
 
 <br /><br />
