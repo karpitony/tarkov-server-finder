@@ -4,6 +4,21 @@
 [![GitHub License](https://img.shields.io/github/license/karpitony/tarkov-server-finder)](./LICENSE)
 
 # Tarkov Server Finder
+
+> [!WARNING]
+> **이 프로젝트는 더 이상 유지되지 않습니다 (Archived)**
+>
+> 로그 구조 변경으로 인해 기존 기능이 더 이상 정상 동작하지 않으며,  
+> 해당 기능은 아래 통합 프로젝트로 이전 및 개선되었습니다.
+>
+>  👉 새로운 프로젝트: https://github.com/karpitony/eft-where-am-i  
+>  👉 관련 변경 사항: https://github.com/karpitony/eft-where-am-i/pull/52  
+>
+> 📦 **다운로드 (권장)**
+> - https://github.com/karpitony/eft-where-am-i/releases/download/v2.3.2/eft-where-am-i-win-sc-Portable.zip
+>
+> 기존의 "서버 위치 확인" 기능은 해당 프로그램에 포함되어 있으며,  
+> 추가 기능과 함께 지속적으로 업데이트됩니다.
  
 ## 사용 방법
 
